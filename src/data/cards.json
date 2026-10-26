@@ -1,0 +1,463 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "image": "IMG_8829.HEIC",
+    "cardCount": 23,
+    "chapter": 1,
+    "notes": [
+      "Assigned to Chapter I by the user. Shuffle all 23 cards and deal 20 to the chapter layout.",
+      "Costs and effects reflect the visual transcription. Chain symbols are not verified; null does not establish that a card has no chain symbol.",
+      "Loaded through chapterOneCards.ts. Structured costs are adapted to the current card model; unverified chain symbols remain null."
+    ]
+  },
+  "cards": [
+    {
+      "id": "photo-strength-1",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "strength",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-strength-2",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "strength",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-courage-1",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "courage",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-courage-2",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "courage",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ruse-1",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "ruse",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ruse-2",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "ruse",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-knowledge-1",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "knowledge",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-leadership-1",
+      "type": "resource",
+      "color": "gray",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "produce_resource",
+          "resource": "leadership",
+          "amount": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-coins-1",
+      "type": "gold",
+      "color": "yellow",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "gain_coins",
+          "amount": 2
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-coins-2",
+      "type": "gold",
+      "color": "yellow",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "gain_coins",
+          "amount": 2
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-coins-3",
+      "type": "gold",
+      "color": "yellow",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "gain_coins",
+          "amount": 2
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-coins-4",
+      "type": "gold",
+      "color": "yellow",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "gain_coins",
+          "amount": 2
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-elf-1",
+      "type": "alliance",
+      "color": "green",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "knowledge"
+        ]
+      },
+      "effects": [
+        {
+          "type": "gain_race_symbol",
+          "race": "elf"
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": "lyre",
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-dwarf-1",
+      "type": "alliance",
+      "color": "green",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "leadership"
+        ]
+      },
+      "effects": [
+        {
+          "type": "gain_race_symbol",
+          "race": "dwarf"
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": "anvil",
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-hobbit-1",
+      "type": "alliance",
+      "color": "green",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "leadership"
+        ]
+      },
+      "effects": [
+        {
+          "type": "gain_race_symbol",
+          "race": "hobbit"
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": "cooking pot",
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-human-1",
+      "type": "alliance",
+      "color": "green",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "knowledge"
+        ]
+      },
+      "effects": [
+        {
+          "type": "gain_race_symbol",
+          "race": "human"
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": "horseshoe",
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ring-free-1",
+      "type": "ring",
+      "color": "blue",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "advance_ring",
+          "steps": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ring-coin-1",
+      "type": "ring",
+      "color": "blue",
+      "cost": {
+        "coins": 1,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "advance_ring",
+          "steps": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ring-courage-1",
+      "type": "ring",
+      "color": "blue",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "courage"
+        ]
+      },
+      "effects": [
+        {
+          "type": "advance_ring",
+          "steps": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-ring-strength-1",
+      "type": "ring",
+      "color": "blue",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "strength"
+        ]
+      },
+      "effects": [
+        {
+          "type": "advance_ring",
+          "steps": 1
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-lindon-arnor-1",
+      "type": "military",
+      "color": "red",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "place_units",
+          "amount": 1,
+          "chooseTerritoryFrom": [
+            "lindon",
+            "arnor"
+          ]
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-enedwaith-rhovanion-1",
+      "type": "military",
+      "color": "red",
+      "cost": {
+        "coins": 0,
+        "resources": []
+      },
+      "effects": [
+        {
+          "type": "place_units",
+          "amount": 1,
+          "chooseTerritoryFrom": [
+            "enedwaith",
+            "rhovanion"
+          ]
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    },
+    {
+      "id": "photo-gondor-rohan-1",
+      "type": "military",
+      "color": "red",
+      "cost": {
+        "coins": 0,
+        "resources": [
+          "ruse"
+        ]
+      },
+      "effects": [
+        {
+          "type": "place_units",
+          "amount": 1,
+          "chooseTerritoryFrom": [
+            "gondor",
+            "rohan"
+          ]
+        }
+      ],
+      "chainSymbol": null,
+      "chainSymbolDescription": null,
+      "chainSymbolVerified": false
+    }
+  ]
+}
