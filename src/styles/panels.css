@@ -1,0 +1,148 @@
+.game-sidebar {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: space-between;
+  overflow-y: auto;
+  gap: 12px;
+}
+.player-summary {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 1vh, 10px);
+  color: #d2d8c9;
+  text-align: left;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.player-summary:hover {
+  border-color: #cbb17b;
+  background: #203227;
+}
+.summary-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.summary-heading strong {
+  font:
+    500 17px 'Cinzel',
+    Georgia,
+    serif;
+  color: var(--color-accent);
+}
+.summary-heading > span {
+  font-size: var(--text-small);
+  color: var(--color-muted);
+}
+.summary-label {
+  font-size: var(--text-small);
+  color: #cbb17b;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.resource-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  width: 100%;
+  font-size: var(--text-small);
+}
+.resource-summary > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+}
+.resource-summary b {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+.sidebar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+.game-caption {
+  color: var(--color-muted);
+  font-size: var(--text-secondary);
+  line-height: 1.7;
+  margin: 8px 0 16px;
+}
+.sidebar-controls .game-caption {
+  font-size: var(--text-small);
+  margin: 0;
+}
+.game-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+}
+.game-button {
+  border: 1px solid #bca16c66;
+  border-radius: 4px;
+  color: #e0d3b5;
+  background: #223026;
+  padding: 10px 12px;
+  font-size: var(--text-small);
+}
+.game-button:hover {
+  background: #344333;
+}
+.game-modal {
+  width: min(760px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  border: 1px solid #bca16c88;
+  border-radius: 10px;
+  background: #182820;
+  color: var(--color-text);
+  padding: 28px;
+  box-shadow: 0 30px 100px #0008;
+}
+.game-modal::backdrop {
+  background: #06100ce0;
+  backdrop-filter: blur(5px);
+}
+.modal-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.modal-heading h2 {
+  font:
+    500 19px 'Cinzel',
+    Georgia,
+    serif;
+  margin: 0;
+  color: var(--color-accent);
+}
+.finished-placeholder {
+  text-align: center;
+  padding: 30px 0 8px;
+}
+.finished-placeholder > span {
+  display: block;
+  color: #d5bd88;
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+.finished-placeholder h3 {
+  font:
+    400 28px 'Cinzel',
+    Georgia,
+    serif;
+  color: var(--color-accent);
+}
+.finished-placeholder p {
+  font-size: var(--text-secondary);
+  line-height: 1.8;
+  color: var(--color-muted);
+}
+.finished-placeholder .begin-button {
+  max-width: 300px;
+  margin: 25px auto 0;
+}

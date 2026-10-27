@@ -22,6 +22,7 @@ export default function ChapterLayoutCard({
   const [actionsOpen, setActionsOpen] = useState(false)
   const faceUp = initiallyFaceUp || available
   const cost = getCardCoinCost(player, card)
+  const isGold = card.type === 'gold'
   const canBuy = canAcquireCard(player, card)
 
   return (
@@ -48,7 +49,7 @@ export default function ChapterLayoutCard({
         )}
       </span>
       {available && (
-        <div className="chapter-card-actions">
+        <div className={`chapter-card-actions${isGold ? ' single-action' : ''}`}>
           <button
             type="button"
             className="card-hover-action"
@@ -58,28 +59,36 @@ export default function ChapterLayoutCard({
               onBuy()
             }}
             title={
-              canBuy
-                ? `Buy: ${cost === 0 ? 'free' : `${cost} coins`}`
-                : `Buy: requires ${cost} coins; you have ${player.coinCount}`
+              isGold
+                ? `Gain ${card.value} coins`
+                : canBuy
+                  ? `Buy: ${cost === 0 ? 'free' : `${cost} coins`}`
+                  : `Buy: requires ${cost} coins; you have ${player.coinCount}`
             }
-            aria-label={`Buy ${describeCard(card)} for ${cost === 0 ? 'free' : `${cost} coins`}`}
+            aria-label={
+              isGold
+                ? `Gain ${card.value} coins`
+                : `Buy ${describeCard(card)} for ${cost === 0 ? 'free' : `${cost} coins`}`
+            }
           >
-            <span aria-hidden="true">−{cost}</span>
+            <span aria-hidden="true">{isGold ? `+${card.value}` : `−${cost}`}</span>
             <span className="action-coin" aria-hidden="true" />
           </button>
-          <button
-            type="button"
-            className="card-hover-action"
-            onClick={(event) => {
-              event.stopPropagation()
-              onSell()
-            }}
-            title={`Sell: gain ${card.chapter} coins`}
-            aria-label={`Sell ${describeCard(card)} for ${card.chapter} coins`}
-          >
-            <span aria-hidden="true">+{card.chapter}</span>
-            <span className="action-coin" aria-hidden="true" />
-          </button>
+          {!isGold && (
+            <button
+              type="button"
+              className="card-hover-action"
+              onClick={(event) => {
+                event.stopPropagation()
+                onSell()
+              }}
+              title={`Sell: gain ${card.chapter} coins`}
+              aria-label={`Sell ${describeCard(card)} for ${card.chapter} coins`}
+            >
+              <span aria-hidden="true">+{card.chapter}</span>
+              <span className="action-coin" aria-hidden="true" />
+            </button>
+          )}
         </div>
       )}
     </div>

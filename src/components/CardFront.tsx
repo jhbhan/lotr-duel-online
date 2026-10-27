@@ -2,6 +2,7 @@ import { territoryDefinitions } from '../data/territories'
 import type { Card } from '../models'
 import CoinAmount from './CoinAmount'
 import RingIcon from './RingIcon'
+import ResourceIcon from './ResourceIcon'
 
 export function describeCard(card: Card) {
   if (card.type === 'resource') return `+${card.value} ${card.resourceType}`
@@ -34,11 +35,7 @@ function CardEffect({ card }: { card: Card }) {
       card.type === 'ring' ? (
         <RingIcon key={index} />
       ) : (
-        <span
-          key={index}
-          aria-hidden="true"
-          className={`effect-icon effect-resource resource-${card.resourceType}`}
-        />
+        <ResourceIcon key={index} resource={card.resourceType!} />
       ),
     )
   }

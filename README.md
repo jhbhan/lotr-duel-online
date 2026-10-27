@@ -21,8 +21,10 @@ If Node is not on your shell PATH, this machine has it at `/Users/jasonbhan/.nvm
 ## Starting point
 
 - `src/App.tsx`: starting screen with Fellowship / Sauron selection and local setup creation.
-- `src/models/index.ts`: typed placeholders for users, game state, territories, player resources, cards and card types, and the Ring journey.
-- `src/styles.css`: responsive Middle-earth-inspired styling; CSS landscape requires no image assets. Google Fonts are optional, with local fallbacks.
+- `src/models/index.ts`: domain types; `src/data/initialGameState.ts` creates a new local game.
+- `src/engine/`: chapter actions, landmark purchases, and shared turn/effect resolution.
+- `src/components/GamePlay/`: dialogs, player summaries, and reusable card/territory choices.
+- `src/styles.css`: style entry point; `src/styles/` groups styles by feature. Typography, color, and spacing tokens live in `base.css`. Google Fonts are optional, with local fallbacks.
 - `reference/`: existing official player aid and reference notes.
 
 The begin button creates an in-memory setup draft. Starting resources, map, cards, Ring track, rules, persistence, and multiplayer are deliberately unimplemented. Resource and card categories are provisional until component data is verified. This is an unofficial fan project.

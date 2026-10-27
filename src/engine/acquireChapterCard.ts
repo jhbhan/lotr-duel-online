@@ -1,5 +1,5 @@
 import type { Faction, GameState } from '../models'
-import { takeChapterCard } from './landMarks'
+import { takeChapterCard } from './chapterActions'
 export const acquireChapterCard = (
   game: GameState,
   faction: Faction,

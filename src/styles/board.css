@@ -1,0 +1,406 @@
+body:has(.game-view) {
+  overflow: hidden;
+}
+.game-view {
+  height: 100dvh;
+  overflow: hidden;
+  padding: 12px;
+  background: radial-gradient(ellipse at top, #30443755, transparent 65%), #101b18;
+}
+.game-board {
+  height: 100%;
+  max-width: 1800px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) clamp(180px, 20vw, 260px);
+  gap: 12px;
+}
+.game-panel {
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #c4ab6e33;
+  border-radius: 8px;
+  background: #16231ed9;
+  padding: 16px;
+}
+.game-panel h2 {
+  font:
+    500 16px 'Cinzel',
+    Georgia,
+    serif;
+  color: var(--color-accent);
+  margin: 0;
+}
+.ring-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 8px;
+  gap: 12px;
+  container-type: size;
+  --ring-step: calc((100cqh - 16px) / 24);
+}
+.vertical-ring-track {
+  flex: none;
+  position: relative;
+  width: 100%;
+  height: calc(16px + (var(--ring-node-count) - 1) * var(--ring-step));
+}
+.vertical-ring-track:before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: #bca16c55;
+}
+.ring-node {
+  position: absolute;
+  left: 50%;
+  top: calc(8px + (var(--ring-node-count) - 1 - var(--ring-node-index)) * var(--ring-step));
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #bca16c99;
+  border-radius: 50%;
+  background: #182820;
+}
+.ring-node.bonus-node {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0;
+  background: #16231e;
+  color: var(--color-accent);
+  font-size: 14px;
+  line-height: 1;
+}
+.ring-character {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  border: 1px solid;
+  border-radius: 50%;
+  z-index: 2;
+}
+.ring-character-sauron {
+  background: #050505;
+  border-color: #aebbb0;
+  box-shadow:
+    0 0 5px 2px #d9e8db55,
+    0 0 13px 4px #c0d6c32e;
+}
+.ring-character-fellowship {
+  background: #f4ce49;
+  border-color: #ffe99b;
+  box-shadow:
+    0 0 6px 2px #f4ce4980,
+    0 0 15px 4px #f4ce493d;
+}
+.ring-character-sauron + .ring-character-fellowship {
+  left: 75%;
+}
+.ring-node.ring-destination {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #eac35b;
+  background: #16231e;
+  box-shadow:
+    inset 0 0 3px #ffe9a455,
+    0 0 8px #eac35b55;
+}
+.chapter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
+  padding: clamp(12px, 2vw, 30px);
+}
+.chapter-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.chapter-heading .eyebrow {
+  font-size: var(--text-small);
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+}
+.chapter-heading h1 {
+  font-size: clamp(22px, 3vw, 38px);
+  letter-spacing: 0;
+}
+.chapter-card-layout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 4px 0 12px;
+  --card-width: min(15%, calc((100dvh - 130px) / var(--rows) * 0.85));
+}
+.chapter-row {
+  height: calc(100% / (var(--rows) + 0.45));
+  flex: none;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: var(--row);
+}
+.chapter-row.spread-row {
+  gap: var(--card-width);
+}
+.chapter-layout-card,
+.chapter-card-slot {
+  width: var(--card-width);
+  height: 145%;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  padding: 0;
+  position: relative;
+}
+.chapter-layout-card {
+  border: 0;
+  background: transparent;
+  color: #716146;
+  box-shadow: 0 3px 8px #0006;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+  perspective: 600px;
+  cursor: pointer;
+}
+.card-flip {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.chapter-layout-card.face-down .card-front,
+.chapter-layout-card.face-up .card-back {
+  visibility: hidden;
+}
+.chapter-layout-card.revealing .card-flip {
+  animation: flip-card 0.55s ease;
+}
+.chapter-layout-card.revealing .card-front {
+  animation: show-card-front 0.55s step-end;
+}
+.chapter-layout-card.revealing .card-back {
+  animation: show-card-back 0.55s step-end;
+}
+@keyframes flip-card {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0);
+  }
+}
+@keyframes show-card-front {
+  0% {
+    visibility: hidden;
+  }
+  50%,
+  100% {
+    visibility: visible;
+  }
+}
+@keyframes show-card-back {
+  0% {
+    visibility: visible;
+  }
+  50%,
+  100% {
+    visibility: hidden;
+  }
+}
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #6b5036;
+  border-radius: 3px;
+  backface-visibility: hidden;
+  font-size: clamp(15px, 3vh, 32px);
+}
+.card-back {
+  background: #563e30;
+  border-color: #39291e;
+  color: #c5a679;
+}
+.card-front {
+  background: #e8e1d0;
+  color: #716146;
+}
+.chapter-2 .card-back {
+  background: #255070;
+  border-color: #183b58;
+  color: #92bbda;
+}
+.chapter-3 .card-back {
+  background: #59354d;
+  border-color: #3a2238;
+  color: #cba1b9;
+}
+.chapter-layout-card:disabled {
+  cursor: default;
+}
+.chapter-layout-card.available {
+  cursor: pointer;
+  box-shadow:
+    0 0 0 2px #e2bd6a,
+    0 4px 12px #0008;
+}
+.chapter-layout-card.available:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 3px #f5d998,
+    0 6px 15px #0009;
+}
+.chapter-layout-card.available.revealing {
+  animation: wait-for-flip 0.55s;
+}
+@keyframes wait-for-flip {
+  from,
+  to {
+    box-shadow: 0 3px 8px #0006;
+  }
+}
+.chapter-layout-card.available:focus-visible {
+  outline: 3px solid #f5d998;
+  outline-offset: 3px;
+}
+.card-flip,
+.card-face {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chapter-layout-card.revealing .card-flip,
+  .chapter-layout-card.revealing .card-front,
+  .chapter-layout-card.revealing .card-back,
+  .chapter-layout-card.available.revealing {
+    animation: none;
+  }
+}
+@media (max-width: 650px) {
+  .game-view {
+    padding: 6px;
+  }
+  .game-board {
+    grid-template-columns: 32px minmax(0, 1fr) 126px;
+    gap: 6px;
+  }
+  .game-sidebar {
+    gap: 6px;
+  }
+  .game-panel {
+    padding: 8px;
+    border-radius: 5px;
+  }
+  .ring-panel {
+    padding: 10px 4px;
+    gap: var(--space-small);
+  }
+  .chapter-panel {
+    gap: var(--space-small);
+  }
+  .chapter-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .chapter-heading .eyebrow {
+    display: none;
+  }
+  .chapter-heading h1 {
+    font-size: 18px;
+  }
+  .chapter-card-layout {
+    --card-width: min(15%, calc((100dvh - 100px) / var(--rows) * 0.75));
+    padding: 0 0 8px;
+  }
+  .card-face {
+    border-width: 1px;
+    font-size: 14px;
+  }
+  .summary-heading strong {
+    font-size: 14px;
+  }
+  .resource-summary {
+    grid-template-columns: 1fr;
+    font-size: var(--text-small);
+    gap: 2px;
+  }
+  .player-summary {
+    gap: 5px;
+  }
+  .summary-heading > span {
+    font-size: var(--text-small);
+  }
+  .sidebar-controls h2 {
+    font-size: 13px;
+  }
+  .game-button {
+    font-size: var(--text-small);
+    padding: 8px 4px;
+  }
+  .game-modal {
+    padding: 18px;
+  }
+}
+@media (max-height: 650px) {
+  .player-summary {
+    gap: 3px;
+    padding: 8px;
+  }
+  .resource-summary {
+    font-size: var(--text-small);
+    gap: 2px 8px;
+  }
+  .summary-heading {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .summary-heading strong {
+    font-size: 13px;
+  }
+  .summary-heading > span {
+    font-size: var(--text-small);
+  }
+  .summary-label {
+    font-size: var(--text-small);
+  }
+  .game-actions {
+    gap: 4px;
+  }
+  .game-button {
+    padding: 6px;
+    font-size: var(--text-small);
+  }
+  .sidebar-controls {
+    gap: 6px;
+    padding: 8px;
+  }
+  .sidebar-controls .game-caption {
+    display: none;
+  }
+  .chapter-heading .eyebrow {
+    display: none;
+  }
+}

@@ -1,0 +1,178 @@
+.active-faction {
+  font-weight: 700;
+}
+.active-sauron {
+  color: #f09182;
+}
+.active-fellowship {
+  color: #6da7aa;
+}
+.game-modal:has(.landmark-market) {
+  width: min(1040px, calc(100% - 32px));
+}
+.landmark-market {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(235px, 1fr));
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.landmark-tile {
+  border: 1px solid #987a47;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.landmark-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0;
+  text-align: left;
+}
+.landmark-territory {
+  text-align: right;
+}
+.landmark-resources,
+.choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.choice-list {
+  flex-direction: column;
+}
+.choice-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.choice-card {
+  position: relative;
+  width: 140px;
+  height: 200px;
+  padding: 0;
+  background: transparent;
+  border: 2px solid #987a47;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.choice-card .card-face {
+  width: 100%;
+  height: 100%;
+}
+.game-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.territory-lindon {
+  --territory-color: #4385a3;
+}
+.territory-arnor {
+  --territory-color: #a38a50;
+}
+.territory-rhovanion {
+  --territory-color: #7d974d;
+}
+.territory-enedwaith {
+  --territory-color: #9c557f;
+}
+.territory-rohan {
+  --territory-color: #4f926b;
+}
+.territory-gondor {
+  --territory-color: #597da8;
+}
+.territory-mordor {
+  --territory-color: #b45c46;
+}
+.landmark-tile,
+.territory-choice {
+  border-top: 4px solid var(--territory-color);
+}
+.landmark-resources .effect-icon,
+.landmark-effect-icons .effect-icon,
+.coin-amount,
+.unit-movement-icon .effect-icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  font-size: 13px;
+}
+.landmark-wallet,
+.landmark-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.landmark-resources {
+  min-height: 24px;
+  justify-content: center;
+}
+.coin-amount {
+  display: inline-flex;
+  vertical-align: middle;
+}
+.landmark-effects {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.landmark-effect {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.landmark-effect-icons {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex: none;
+}
+.landmark-effect-icons:empty {
+  display: none;
+}
+.unit-movement-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  vertical-align: middle;
+}
+.movement-arrow {
+  font-weight: 900;
+  -webkit-text-stroke: 0.6px currentColor;
+  font-size: 24px;
+  line-height: 1;
+  color: #edca70;
+}
+.landmark-tile {
+  display: flex;
+  flex-direction: column;
+}
+.landmark-buy-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 46px;
+  margin-top: auto;
+}
+.landmark-tile .landmark-resources {
+  margin-bottom: 0.5rem;
+}
+.card-effect > .coin-amount {
+  width: auto;
+  height: 85%;
+  font-size: inherit;
+}
+.landmark-effects {
+  font-size: var(--text-secondary);
+  line-height: 1.6;
+}

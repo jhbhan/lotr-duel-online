@@ -1,0 +1,26 @@
+.resource-summary > span {
+  text-transform: capitalize;
+}
+.owned-card {
+  position: relative;
+  aspect-ratio: 2/3;
+  min-width: 0;
+}
+.owned-card .card-front {
+  transform: none;
+}
+.owned-card .card-effect {
+  font-size: 15px;
+}
+.owned-card .card-cost,
+.owned-card .card-territories {
+  font-size: var(--text-secondary);
+}
+.card-cost:empty {
+  min-height: 1.6em;
+  border-top-color: transparent;
+  background: transparent;
+}
+.game-button:disabled:hover {
+  background: #223026;
+}

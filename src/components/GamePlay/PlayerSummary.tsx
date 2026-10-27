@@ -1,4 +1,5 @@
 import CoinAmount from '../CoinAmount'
+import ResourceIcon from '../ResourceIcon'
 import type { Race, ResourceType, User } from '../../models'
 
 const resources: ResourceType[] = ['strength', 'courage', 'ruse', 'leadership', 'knowledge']
@@ -42,7 +43,6 @@ export function PlayerSummary({
         <span>{player.name}</span>
       </div>
       <div className="summary-section">
-        <h3 className="summary-label">Resources</h3>
         <ResourceDisplay resources={player.resources} coins={player.coinCount} />
       </div>
       <div className="summary-section">
@@ -58,7 +58,6 @@ export function PlayerSummary({
               {raceNames[race][0]}
             </span>
           ))}
-          {races.length === 0 && <span className="alliance-empty">None yet</span>}
         </div>
       </div>
     </section>
@@ -77,14 +76,13 @@ export const ResourceDisplay = ({
     {resources.map((resource) => {
       const count = ownedResources.filter((owned) => owned === resource).length
       return (
-        <span
+        <ResourceIcon
           key={resource}
-          className={`resource-circle resource-${resource}${count === 0 ? ' resource-empty' : ''}`}
-          title={`${resource}: ${count}`}
-          aria-label={`${resource}: ${count}`}
-        >
-          {count}
-        </span>
+          resource={resource}
+          count={count}
+          showSymbol={false}
+          className={`resource-circle${count === 0 ? ' resource-empty' : ''}`}
+        />
       )
     })}
   </div>

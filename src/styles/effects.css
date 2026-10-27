@@ -1,0 +1,90 @@
+.card-effect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  height: 20%;
+  flex: 0 0 20%;
+  box-sizing: border-box;
+  padding: 2% 3%;
+}
+.effect-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 85%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.effect-resource {
+  border: 1px solid #ffffff80;
+  box-shadow:
+    inset 0 2px 3px #fff3,
+    0 1px 3px #0006;
+}
+.effect-ring {
+  border: 3px solid #f4cf42;
+  box-shadow:
+    inset 0 0 2px #906314,
+    0 1px 3px #0007;
+  background: transparent;
+}
+.effect-coin {
+  background: linear-gradient(135deg, #ffe797, #d7a32a);
+  border: 2px solid #f4d367;
+  box-shadow:
+    inset 0 0 0 1px #a87826,
+    0 1px 3px #0006;
+  color: #533b13;
+  font-size: inherit;
+  font-weight: 800;
+  text-shadow: 0 1px #ffedac;
+}
+.card-effect > .alliance-letter {
+  height: 95%;
+  width: auto;
+  aspect-ratio: 26/28;
+  box-sizing: border-box;
+  font-size: clamp(10px, 1.8vh, 20px);
+  flex-shrink: 0;
+}
+.resource-summary > .resource-coin {
+  background: radial-gradient(circle at 35% 30%, #ffe697, #d6a52f);
+  border-color: #ffe49a;
+  box-shadow:
+    inset 0 0 0 1px #ae781b,
+    0 1px 3px #0006;
+  color: #533b13;
+  text-shadow: 0 1px #ffedac;
+}
+.effect-shield {
+  border-radius: 0;
+  clip-path: polygon(5% 0, 95% 0, 90% 62%, 75% 83%, 50% 100%, 25% 83%, 10% 62%);
+  background: linear-gradient(135deg, #f0d69b, #b38a48);
+  color: #4b271e;
+  font-weight: 800;
+  text-shadow: 0 1px #ffe8b8;
+  box-shadow: inset 0 0 0 2px #f6dfad;
+  padding-bottom: 5%;
+}
+/* Symbols accompany resource colors so their meaning does not depend on color. */
+.effect-resource {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px #000;
+}
+.resource-strength {
+  background: #24547f;
+}
+.resource-courage {
+  background: #8c3533;
+}
+.resource-leadership {
+  background: #67407f;
+}
+.resource-knowledge {
+  background: #2e5c41;
+}

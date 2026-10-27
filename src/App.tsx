@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { createInitialGameState } from './models'
+import { createInitialGameState } from './data/initialGameState'
 import type { Choice, Faction, GameState } from './models'
 import { acquireChapterCard, sellChapterCard } from './engine/acquireChapterCard'
-import { advanceChapter, buyLandmark, resolvePendingChoice } from './engine/landMarks'
+import { advanceChapter } from './engine/chapterActions'
+import { buyLandmark } from './engine/landMarks'
+import { resolvePendingChoice } from './engine/turnResolver'
 import InGameView from './components/InGameView'
 
 const factions: { id: Faction; name: string; description: string; symbol: string }[] = [

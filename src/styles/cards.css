@@ -1,0 +1,226 @@
+/* Chapter backs inspired by the photographed stone, leather, and dark covers. */
+.card-face.card-back {
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #4d432e;
+  background-color: var(--back-color);
+  background-image:
+    radial-gradient(ellipse at 25% 20%, #e4dbb330, transparent 55%),
+    radial-gradient(ellipse at 75% 70%, #0009, transparent 65%),
+    repeating-linear-gradient(135deg, #e2d6b00c 0 1px, transparent 1px 7px);
+  color: #e5bb43;
+}
+.card-back-1 {
+  --back-color: #716b5c;
+}
+.card-back-2 {
+  --back-color: #4e3027;
+}
+.card-back-3 {
+  --back-color: #1c2428;
+}
+.card-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.07' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+.card-back-frame {
+  position: absolute;
+  inset: 6%;
+  border: 3px double #c29b48b3;
+  border-radius: 7% 2% 7% 2%;
+  box-shadow:
+    inset 0 0 0 1px #302512,
+    0 0 0 1px #302512;
+}
+.card-back-frame::before,
+.card-back-frame::after {
+  content: '◇';
+  position: absolute;
+  font-family: Georgia, serif;
+  font-size: clamp(8px, 1.8vh, 17px);
+  line-height: 1;
+  color: #d2ad5e;
+  text-shadow: 0 1px #21190c;
+}
+.card-back-frame::before {
+  top: -0.3em;
+  left: -0.3em;
+}
+.card-back-frame::after {
+  bottom: -0.3em;
+  right: -0.3em;
+}
+.card-back-rune {
+  width: 56%;
+  height: 56%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 1px #1a0c00) drop-shadow(0 0 3px #f8b32388);
+}
+.card-back-rune path {
+  fill: #ca891b;
+  stroke: #ffd968;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.card-back-chapter {
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #cfaa54;
+  border-radius: 50%;
+  background: var(--back-color);
+  width: 1.4em;
+  height: 1.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font:
+    400 var(--text-small) Georgia,
+    serif;
+  color: #e3c77f;
+}
+.territory-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 60dvh;
+  border: 1px solid #9c85533b;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 15% 30%, #35575670, transparent 60%),
+    radial-gradient(ellipse at 90% 80%, #72553640, transparent 65%), #192b23;
+}
+.territory-routes line {
+  stroke: #917953;
+  stroke-width: 3;
+}
+.territory-routes .selected-route {
+  stroke: #efce83;
+  stroke-width: 4;
+}
+.territory-node {
+  cursor: pointer;
+}
+.territory-node rect {
+  fill: #23382b;
+  stroke: #a18a5c;
+  stroke-width: 1.5;
+}
+.territory-node:hover rect,
+.selected-territory rect,
+.territory-node:focus-visible rect {
+  fill: #344c37;
+  stroke: #f1d18a;
+  stroke-width: 3;
+}
+.territory-name {
+  fill: #eddfbf;
+  font:
+    16px 'Cinzel',
+    Georgia,
+    serif;
+}
+.card-front[class*='card-front-'] {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  background-color: var(--front-color);
+  background-image:
+    radial-gradient(ellipse at 25% 15%, #fff3, transparent 65%),
+    repeating-linear-gradient(135deg, #fff1 0 1px, transparent 1px 6px);
+  color: #f1eadb;
+  overflow: hidden;
+}
+.card-front-resource {
+  --front-color: #5c605d;
+}
+.card-front-gold {
+  --front-color: #705412;
+}
+.card-front-alliance {
+  --front-color: #31593c;
+}
+.card-front-ring {
+  --front-color: #2d497b;
+}
+.card-front-military {
+  --front-color: #873a2b;
+}
+.card-effect {
+  display: block;
+  padding: 6% 3%;
+  text-align: center;
+  font-size: var(--text-secondary);
+  font-weight: 700;
+  text-transform: capitalize;
+  border-bottom: 1px solid #e8ce8155;
+  background: #0002;
+}
+.card-front-body {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4%;
+}
+.card-type-label {
+  font:
+    400 var(--text-small) 'Cinzel',
+    Georgia,
+    serif;
+  letter-spacing: 0.4px;
+  opacity: 1;
+}
+.card-territories {
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: #ffe5b4;
+  text-align: center;
+}
+.card-cost {
+  padding: 4%;
+  font-size: var(--text-small);
+  line-height: 1.4;
+  text-align: center;
+  text-transform: capitalize;
+  border-top: 1px solid #e8ce8155;
+  background: #0002;
+}
+.military-territory-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-medium);
+  padding: 12px 0;
+}
+.military-territory-choices .game-button {
+  min-height: 90px;
+  font:
+    500 17px 'Cinzel',
+    Georgia,
+    serif;
+}
+@media (max-width: 650px) {
+  .card-type-label {
+    display: none;
+  }
+  .card-effect,
+  .card-cost,
+  .card-territories {
+    font-size: var(--text-small);
+  }
+  .card-front-body {
+    padding: 1px;
+  }
+  .military-territory-choices .game-button {
+    font-size: 13px;
+  }
+}
