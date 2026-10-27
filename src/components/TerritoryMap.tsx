@@ -18,8 +18,8 @@ const factionColors = {
 
 export default function TerritoryMap({ territories }: { territories: Territory[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const selected = territories.find(territory => territory.id === selectedId)
-  const names = new Map(territories.map(territory => [territory.id, territory.name]))
+  const selected = territories.find((territory) => territory.id === selectedId)
+  const names = new Map(territories.map((territory) => [territory.id, territory.name]))
 
   return (
     <div className="territory-map">
@@ -29,43 +29,84 @@ export default function TerritoryMap({ territories }: { territories: Territory[]
           {territoryConnections.map(([from, to]) => {
             const start = positions[from]
             const end = positions[to]
-            return <line key={`${from}-${to}`} x1={start.x} y1={start.y} x2={end.x} y2={end.y}
-              className={selectedId === from || selectedId === to ? 'selected-route' : ''} />
+            return (
+              <line
+                key={`${from}-${to}`}
+                x1={start.x}
+                y1={start.y}
+                x2={end.x}
+                y2={end.y}
+                className={selectedId === from || selectedId === to ? 'selected-route' : ''}
+              />
+            )
           })}
         </g>
-        {territories.map(territory => {
+        {territories.map((territory) => {
           const position = positions[territory.id]
           if (!position) return null
           const active = territory.id === selectedId
           const fortressColors = territory.fortress ? factionColors[territory.fortress] : null
           const unitColors = territory.unitType ? factionColors[territory.unitType] : null
           const shieldSpacing = Math.min(19, 140 / Math.max(territory.unitCount, 1))
-          return <g key={territory.id} transform={`translate(${position.x},${position.y})`}
-            className={`territory-node${active ? ' selected-territory' : ''}`} role="button" tabIndex={0}
-            aria-label={`${territory.name}, ${territory.unitCount} units, ${territory.fortress ? `${territory.fortress} fortress` : 'no fortress'}`}
-            aria-pressed={active} onClick={() => setSelectedId(territory.id)}
-            onKeyDown={event => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault()
-                setSelectedId(territory.id)
-              }
-            }}>
-            <rect x="-80" y="-36" width="160" height="72" rx="7" />
-            <path d="M-65,-35 h18 v27 l-9,-6 -9,6 z"
-              fill={fortressColors?.fill ?? position.color} stroke={fortressColors?.stroke ?? 'none'}
-              strokeWidth="2" aria-hidden="true" />
-            <text className="territory-name" textAnchor="middle" y="0">{territory.name}</text>
-            {unitColors && <g aria-hidden="true" fill={unitColors.fill} stroke={unitColors.stroke} strokeWidth="1.8">
-              {Array.from({ length: territory.unitCount }, (_, index) => <path key={index}
-                transform={`translate(${(index - (territory.unitCount - 1) / 2) * shieldSpacing},11) scale(${Math.min(1, shieldSpacing / 19)})`}
-                d="M-7,0 H7 L6,10 L3,14 L0,17 L-3,14 L-6,10 Z" />)}
-            </g>}
-          </g>
+          return (
+            <g
+              key={territory.id}
+              transform={`translate(${position.x},${position.y})`}
+              className={`territory-node${active ? ' selected-territory' : ''}`}
+              role="button"
+              tabIndex={0}
+              aria-label={`${territory.name}, ${territory.unitCount} units, ${territory.fortress ? `${territory.fortress} fortress` : 'no fortress'}`}
+              aria-pressed={active}
+              onClick={() => setSelectedId(territory.id)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  setSelectedId(territory.id)
+                }
+              }}
+            >
+              <rect x="-80" y="-36" width="160" height="72" rx="7" />
+              <path
+                d="M-65,-35 h18 v27 l-9,-6 -9,6 z"
+                fill={fortressColors?.fill ?? position.color}
+                stroke={fortressColors?.stroke ?? 'none'}
+                strokeWidth="2"
+                aria-hidden="true"
+              />
+              <text className="territory-name" textAnchor="middle" y="0">
+                {territory.name}
+              </text>
+              {unitColors && (
+                <g
+                  aria-hidden="true"
+                  fill={unitColors.fill}
+                  stroke={unitColors.stroke}
+                  strokeWidth="1.8"
+                >
+                  {Array.from({ length: territory.unitCount }, (_, index) => (
+                    <path
+                      key={index}
+                      transform={`translate(${(index - (territory.unitCount - 1) / 2) * shieldSpacing},11) scale(${Math.min(1, shieldSpacing / 19)})`}
+                      d="M-7,0 H7 L6,10 L3,14 L0,17 L-3,14 L-6,10 Z"
+                    />
+                  ))}
+                </g>
+              )}
+            </g>
+          )
         })}
       </svg>
       <div className="territory-details" aria-live="polite">
-        {selected ? <><strong>{selected.name}</strong><p>Connected to {selected.adjacentTerritoryIds.map(id => names.get(id)).join(', ')}.</p></>
-          : <p>Seven territories · Ten routes</p>}
+        {selected ? (
+          <>
+            <strong>{selected.name}</strong>
+            <p>
+              Connected to {selected.adjacentTerritoryIds.map((id) => names.get(id)).join(', ')}.
+            </p>
+          </>
+        ) : (
+          <p>Seven territories · Ten routes</p>
+        )}
       </div>
     </div>
   )

@@ -52,9 +52,7 @@
         "description": "The Fellowship player immediately wins the game."
       }
     ],
-    "notes": [
-      "This aid lists effect meanings, not their track positions or trigger thresholds."
-    ]
+    "notes": ["This aid lists effect meanings, not their track positions or trigger thresholds."]
   },
   "alliances": [
     {

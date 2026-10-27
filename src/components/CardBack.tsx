@@ -7,11 +7,13 @@ const runePaths = {
 }
 
 export default function CardBack({ chapter }: { chapter: Chapter }) {
-  return <span className={`card-face card-back card-back-${chapter}`}>
-    <span className="card-back-frame" />
-    <svg className="card-back-rune" viewBox="0 0 100 100" aria-hidden="true">
-      <path d={runePaths[chapter]} />
-    </svg>
-    <span className="card-back-chapter">{chapter}</span>
-  </span>
+  return (
+    <span className={`card-face card-back card-back-${chapter}`}>
+      <span className="card-back-frame" />
+      <svg className="card-back-rune" viewBox="0 0 100 100" aria-hidden="true">
+        <path d={runePaths[chapter]} />
+      </svg>
+      <span className="card-back-chapter">{chapter}</span>
+    </span>
+  )
 }

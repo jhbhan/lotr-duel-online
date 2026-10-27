@@ -29,7 +29,8 @@ export function createInitialTerritories() {
     id,
     name,
     adjacentTerritoryIds: territoryConnections.flatMap(([from, to]) =>
-      from === id ? [to] : to === id ? [from] : []),
+      from === id ? [to] : to === id ? [from] : [],
+    ),
     unitType: null,
     unitCount: 0,
     fortress: null,

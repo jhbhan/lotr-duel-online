@@ -10,15 +10,12 @@ export type GameStatus = 'setup' | 'in-progress' | 'finished'
 export type ResourceType = 'courage' | 'ruse' | 'strength' | 'knowledge' | 'leadership'
 export type CardType = 'resource' | 'gold' | 'military' | 'alliance' | 'ring'
 export type Race = 'hobbit' | 'elf' | 'dwarf' | 'human' | 'ent' | 'wizard'
-export type TerritoryName = 'Arnor' | 'Enedwaith' | 'Gondor' | 'Lindon' | 'Mordor' | 'Rohan' | 'Rhovanion'
+export type TerritoryName =
+  'Arnor' | 'Enedwaith' | 'Gondor' | 'Lindon' | 'Mordor' | 'Rohan' | 'Rhovanion'
 export type TerritoryId = string
 export type ChainSymbol = number
 export type SpecialEffect =
-  'optional-resource-crs' |
-  'optional-resource-kl'  |
-  'lose-coin'             |
-  'remove-unit'           |
-  'move-unit';
+  'optional-resource-crs' | 'optional-resource-kl' | 'lose-coin' | 'remove-unit' | 'move-unit'
 
 export interface User {
   id: string
@@ -87,8 +84,12 @@ export type Effect =
   | { type: 'coins' | 'ring'; count: number }
   | { type: 'movement' | 'discard-opponent' | 'discard-card' }
   | { type: 'military'; card: Card }
-export type PendingChoice = Extract<Effect, { type: 'movement' | 'discard-opponent' | 'discard-card' | 'military' }>
-export type Choice = { cardId: string } | { territoryId: string } | { from: string; to: string } | { decline: true }
+export type PendingChoice = Extract<
+  Effect,
+  { type: 'movement' | 'discard-opponent' | 'discard-card' | 'military' }
+>
+export type Choice =
+  { cardId: string } | { territoryId: string } | { from: string; to: string } | { decline: true }
 
 export interface GameState {
   landmarkReserve: string[]
@@ -112,16 +113,20 @@ export interface GameState {
 
 export function createInitialGameState() {
   const deal = createChapterLayout(1)
-  const tiles = landMarkDefinitions.map(tile => tile.id)
+  const tiles = landMarkDefinitions.map((tile) => tile.id)
   for (let i = tiles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[tiles[i], tiles[j]] = [tiles[j], tiles[i]]
   }
   const state: GameState = {
-    landmarkMarket: tiles.slice(0, 3), landmarkReserve: tiles.slice(3),
+    landmarkMarket: tiles.slice(0, 3),
+    landmarkReserve: tiles.slice(3),
     ownedLandmarks: { fellowship: [], sauron: [] },
-    effectQueue: [], pendingChoice: null, chapterComplete: false,
-    resolvingChapterCard: false, victoryReason: null,
+    effectQueue: [],
+    pendingChoice: null,
+    chapterComplete: false,
+    resolvingChapterCard: false,
+    victoryReason: null,
     id: crypto.randomUUID(),
     status: 'setup',
     chapter: 1,
@@ -133,7 +138,7 @@ export function createInitialGameState() {
     availableCards: deal.cards,
     discardedCards: deal.discardedCards,
     winnerId: null,
-    currentPlayer: "sauron",
+    currentPlayer: 'sauron',
   }
 
   return state

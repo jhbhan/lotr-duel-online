@@ -3,8 +3,7 @@ import { hasCompletedRingJourney } from './ringHelper'
 
 function hasPresence(territory: Territory, faction: Faction) {
   return (
-    (territory.unitType === faction && territory.unitCount > 0) ||
-    territory.fortress === faction
+    (territory.unitType === faction && territory.unitCount > 0) || territory.fortress === faction
   )
 }
 
@@ -18,7 +17,8 @@ export function checkRaceWin(user: User) {
 
 export function checkTerritoryWin(user: User, territories: Territory[]) {
   const occupiedIds = new Set(
-    territories.filter((territory) => hasPresence(territory, user.faction))
+    territories
+      .filter((territory) => hasPresence(territory, user.faction))
       .map((territory) => territory.id),
   )
   return occupiedIds.size === 7
@@ -26,11 +26,9 @@ export function checkTerritoryWin(user: User, territories: Territory[]) {
 
 /** Returns the current user's faction for an immediate victory, or null. */
 export function checkWinConditions(user: User, territories: Territory[]) {
-  return (
-    checkRingJourneyWin(user) ||
-    checkRaceWin(user) ||
-    checkTerritoryWin(user, territories)
-  ) ? user.faction : null
+  return checkRingJourneyWin(user) || checkRaceWin(user) || checkTerritoryWin(user, territories)
+    ? user.faction
+    : null
 }
 
 /** Call at game end. Equal presence counts produce a shared victory. */

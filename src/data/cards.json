@@ -241,9 +241,7 @@
       "color": "green",
       "cost": {
         "coins": 0,
-        "resources": [
-          "knowledge"
-        ]
+        "resources": ["knowledge"]
       },
       "effects": [
         {
@@ -261,9 +259,7 @@
       "color": "green",
       "cost": {
         "coins": 0,
-        "resources": [
-          "leadership"
-        ]
+        "resources": ["leadership"]
       },
       "effects": [
         {
@@ -281,9 +277,7 @@
       "color": "green",
       "cost": {
         "coins": 0,
-        "resources": [
-          "leadership"
-        ]
+        "resources": ["leadership"]
       },
       "effects": [
         {
@@ -301,9 +295,7 @@
       "color": "green",
       "cost": {
         "coins": 0,
-        "resources": [
-          "knowledge"
-        ]
+        "resources": ["knowledge"]
       },
       "effects": [
         {
@@ -357,9 +349,7 @@
       "color": "blue",
       "cost": {
         "coins": 0,
-        "resources": [
-          "courage"
-        ]
+        "resources": ["courage"]
       },
       "effects": [
         {
@@ -377,9 +367,7 @@
       "color": "blue",
       "cost": {
         "coins": 0,
-        "resources": [
-          "strength"
-        ]
+        "resources": ["strength"]
       },
       "effects": [
         {
@@ -403,10 +391,7 @@
         {
           "type": "place_units",
           "amount": 1,
-          "chooseTerritoryFrom": [
-            "lindon",
-            "arnor"
-          ]
+          "chooseTerritoryFrom": ["lindon", "arnor"]
         }
       ],
       "chainSymbol": null,
@@ -425,10 +410,7 @@
         {
           "type": "place_units",
           "amount": 1,
-          "chooseTerritoryFrom": [
-            "enedwaith",
-            "rhovanion"
-          ]
+          "chooseTerritoryFrom": ["enedwaith", "rhovanion"]
         }
       ],
       "chainSymbol": null,
@@ -441,18 +423,13 @@
       "color": "red",
       "cost": {
         "coins": 0,
-        "resources": [
-          "ruse"
-        ]
+        "resources": ["ruse"]
       },
       "effects": [
         {
           "type": "place_units",
           "amount": 1,
-          "chooseTerritoryFrom": [
-            "gondor",
-            "rohan"
-          ]
+          "chooseTerritoryFrom": ["gondor", "rohan"]
         }
       ],
       "chainSymbol": null,

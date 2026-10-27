@@ -147,9 +147,7 @@
         "sourceId": "landmark-photo",
         "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
       },
-      "effects": [
-        "Place 1 fortress and 3 units in Rohan."
-      ],
+      "effects": ["Place 1 fortress and 3 units in Rohan."],
       "effectsSourceId": "aid-landmarks-ring",
       "timing": "immediate_on_gain"
     },
