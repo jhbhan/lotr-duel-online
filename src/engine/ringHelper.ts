@@ -14,6 +14,10 @@ export const advanceRingJourney = (user: User, steps: number) => {
     return user.ringJourney
 }
 
+export const checkBonusRewardForRingJourney = (_user: User) => {
+    /** fill out */
+}
+
 export const hasCompletedRingJourney = (user: User) => user.ringJourney >= RING_JOURNEY_GOAL
 
 export const getRemainingRingSteps = (user: User) => Math.max(0, RING_JOURNEY_GOAL - user.ringJourney)

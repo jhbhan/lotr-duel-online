@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Human-readable reference transcription for later parsing; not executable game logic.",
+  "sources": [
+    {
+      "id": "aid-landmarks-ring",
+      "path": "player-aid-landmarks-and-ring.png",
+      "pdfPage": 1
+    },
+    {
+      "id": "aid-alliance",
+      "path": "player-aid-alliance-effects.png",
+      "pdfPage": 2
+    }
+  ],
+  "scope": "All rule images currently in reference: the two pages of the English player aid. This is not a full rulebook transcription.",
+  "terminology": {
+    "skill": "Called resource in the app.",
+    "region": "Called territory in the app.",
+    "yellowCard": "gold",
+    "blueCard": "ring",
+    "redCard": "military",
+    "greenCard": "alliance",
+    "greyCard": "resource"
+  },
+  "questOfTheRing": {
+    "sourceId": "aid-landmarks-ring",
+    "timing": "Immediate; each reward is used once when gained.",
+    "effects": [
+      {
+        "id": "ring-coin",
+        "description": "Take 1 coin from the reserve."
+      },
+      {
+        "id": "ring-extra-turn",
+        "description": "Take another turn after finishing the current turn."
+      },
+      {
+        "id": "ring-unit",
+        "description": "Place 1 unit in any region."
+      },
+      {
+        "id": "ring-remove-fortress",
+        "description": "Remove 1 enemy fortress from any region and return it to the opponent."
+      },
+      {
+        "id": "ring-sauron-victory",
+        "description": "The Sauron player immediately wins the game."
+      },
+      {
+        "id": "ring-fellowship-victory",
+        "description": "The Fellowship player immediately wins the game."
+      }
+    ],
+    "notes": [
+      "This aid lists effect meanings, not their track positions or trigger thresholds."
+    ]
+  },
+  "alliances": [
+    {
+      "race": "elf",
+      "name": "Elves",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "elf-yellow-extra-turn",
+          "timing": "ongoing",
+          "description": "When you play a yellow card, take another turn after finishing the current turn."
+        },
+        {
+          "id": "elf-red-any-region",
+          "timing": "ongoing",
+          "description": "When you play a red card, you may place all its units in any one of the seven regions."
+        },
+        {
+          "id": "elf-any-skill",
+          "timing": "once_per_turn",
+          "description": "Once per turn, benefit from any one skill."
+        }
+      ]
+    },
+    {
+      "race": "dwarf",
+      "name": "Dwarves",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "dwarf-landmark-discount",
+          "timing": "ongoing",
+          "description": "When you play a landmark tile, ignore the additional coin cost."
+        },
+        {
+          "id": "dwarf-landmark-extra-turn",
+          "timing": "ongoing",
+          "description": "When you play a landmark tile, take another turn after finishing the current turn."
+        },
+        {
+          "id": "dwarf-green-movements",
+          "timing": "ongoing",
+          "description": "When you play a green card, also complete 2 movements on the central board."
+        }
+      ]
+    },
+    {
+      "race": "hobbit",
+      "name": "Hobbits",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "hobbit-eagle-symbol",
+          "timing": "ongoing",
+          "description": "The Eagle is an additional race symbol, counting as one of the six required for the Support of the Races victory."
+        },
+        {
+          "id": "hobbit-blue-unit",
+          "timing": "ongoing",
+          "description": "When you play a blue card, also place 1 unit in any region."
+        },
+        {
+          "id": "hobbit-chain-coins",
+          "timing": "ongoing",
+          "description": "When you play a card using a chaining symbol, take 3 coins from the reserve."
+        }
+      ]
+    },
+    {
+      "race": "human",
+      "name": "Humans",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "human-yellow-ring",
+          "timing": "ongoing",
+          "description": "When you play a yellow card, also move your character 1 space on the Quest of the Ring track."
+        },
+        {
+          "id": "human-red-extra-unit",
+          "timing": "ongoing",
+          "description": "When you play a red card, place 1 additional unit in the chosen region."
+        },
+        {
+          "id": "human-discard-double-coins",
+          "timing": "ongoing",
+          "description": "When you discard a card, take twice the coins associated with the current chapter from the reserve: 2, 4, or 6 coins."
+        }
+      ]
+    },
+    {
+      "race": "ent",
+      "name": "Ents",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "ent-extra-turn",
+          "timing": "immediate",
+          "description": "Take another turn after finishing the current turn."
+        },
+        {
+          "id": "ent-remove-fortress",
+          "timing": "immediate",
+          "description": "Remove 1 enemy fortress from any region and return it to the opponent."
+        },
+        {
+          "id": "ent-three-choices",
+          "timing": "immediate",
+          "description": "Choose 3 times between removing 1 enemy unit, making the opponent lose 1 coin, or completing 1 movement on the central board."
+        }
+      ]
+    },
+    {
+      "race": "wizard",
+      "name": "Wizards",
+      "sourceId": "aid-alliance",
+      "effects": [
+        {
+          "id": "wizard-ring-two",
+          "timing": "immediate",
+          "description": "Move your character 2 spaces on the Quest of the Ring track."
+        },
+        {
+          "id": "wizard-two-units",
+          "timing": "immediate",
+          "description": "Place 2 units in one region of your choice, or 1 unit in each of two regions of your choice."
+        },
+        {
+          "id": "wizard-discard-free-card",
+          "timing": "immediate",
+          "description": "Take all discarded cards, secretly choose 1, and play it for free."
+        }
+      ]
+    }
+  ],
+  "unverifiedRules": [
+    "Full setup, turn sequence, military combat, movement restrictions, landmark additional pricing, token acquisition thresholds, and track positions are not described completely by these images.",
+    "Timing interactions between multiple abilities need the full rulebook."
+  ],
+  "allianceTimingNote": "Ent and Wizard effects are immediate effects used once when gained."
+}

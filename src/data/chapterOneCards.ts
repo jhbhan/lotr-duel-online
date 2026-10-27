@@ -12,7 +12,7 @@ export function createChapterOneDeck(random = Math.random) {
       resourceType: 'resource' in effect ? effect.resource as ResourceType : null,
       race: 'race' in effect ? effect.race as Race : null,
       chainSymbol: entry.chainSymbol,
-      cost: entry.cost.resources.length > 0 ? [...entry.cost.resources] as ResourceType[] : entry.cost.coins,
+      cost: { resources: [...entry.cost.resources] as ResourceType[], coins: entry.cost.coins },
       territories: 'chooseTerritoryFrom' in effect ? [...effect.chooseTerritoryFrom] : [],
     }
   })

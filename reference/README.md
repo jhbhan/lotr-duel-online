@@ -15,3 +15,11 @@ Rulebook supplied by user: https://bghub.org/r/thelordoftheringduelformiddleeart
 Implementation note: Use this aid together with the rulebook for landmark, Ring bonus, and alliance effects. Preserve distinctions between immediate effects and ongoing token abilities. Card faces, costs, chaining symbols, map connections, and track positions still need to be recorded from the actual components.
 
 Runtime note: Node v24.22.1 and npm 11.19.1 are installed under `/Users/jasonbhan/.nvm/versions/node/v24.22.1/bin`. The agent shell does not currently include that directory in PATH; commands can prepend that directory when running the project.
+
+## Machine-readable transcriptions
+
+- `rules-reference.json`: all effects in the two player-aid images: six Ring effect meanings and 18 alliance token abilities, with timing, source references, and terminology mappings.
+- `landmarks-reference.json`: all seven landmarks, their destination regions, resource counts read from the tile photograph, and effects read from the aid.
+- `landmark-tiles.HEIC`: user-supplied physical tile photo, originally `IMG_8831.HEIC`.
+
+These JSON files are reference material for later parsing, not runtime implementation. Descriptions preserve the rules in readable prose. Source paths are relative to this directory. Unknown values use `null` and explicit notes; notably the yellow tower symbol's additional cost formula needs rulebook verification. The reference directory currently contains the two player-aid pages, not a full photographed rulebook. The Markdown implementation plan is commentary, not a separate rules source.

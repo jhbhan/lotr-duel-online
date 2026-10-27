@@ -12,8 +12,8 @@ export default function GameFinishedModal({ game, onClose, onExit }: {
     <div className="finished-placeholder">
       <span aria-hidden="true">✧</span>
       <p className="eyebrow">END OF THE JOURNEY</p>
-      <h3>{winner ? `${winner.name} wins` : 'Winner placeholder'}</h3>
-      <p>{winner ? 'Quest of the Ring victory.' : 'Winning faction, victory condition, and final results will appear here.'}</p>
+      <h3>{winner ? `${winner.name} wins` : 'Shared victory'}</h3>
+      <p>{{ ring: 'Quest of the Ring victory.', races: 'Six different races rallied.', territories: 'Presence in all seven territories.', 'final-territories': 'Most territories at the end of Chapter 3.', shared: 'Both factions have equal territory presence.' }[game.victoryReason ?? 'shared']}</p>
       {game.status !== 'finished' && <p className="game-caption">Preview only · This game has not finished.</p>}
       <button className="begin-button" onClick={onExit}>Return to setup</button>
     </div>

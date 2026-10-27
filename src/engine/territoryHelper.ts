@@ -24,6 +24,7 @@ export const removeUnitsFromTerritory = (territory: Territory, unitCount: number
 }
 
 export const addFortressToTerritory = (territory: Territory, faction: Faction) => {
+    if (territory.fortress) throw new Error('A fortress already occupies this territory.')
     territory.fortress = faction
 }
 

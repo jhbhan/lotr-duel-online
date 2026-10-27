@@ -51,7 +51,7 @@ export function createChapterLayout(chapter: Chapter, sourceDeck?: readonly Card
       resourceType: null,
       race: null,
       chainSymbol: null,
-      cost: [],
+      cost: { resources: [], coins: 0 },
       territories: [],
       ...deckById.get(id),
       isCoveredBy,

@@ -1,3 +1,4 @@
+import { landMarkDefinitions } from '../data/landMarks'
 import { createInitialTerritories } from '../data/territories'
 import { createChapterLayout } from '../engine/chapterLayouts'
 import type { ChapterCard } from '../engine/chapterEngine'
@@ -12,6 +13,12 @@ export type Race = 'hobbit' | 'elf' | 'dwarf' | 'human' | 'ent' | 'wizard'
 export type TerritoryName = 'Arnor' | 'Enedwaith' | 'Gondor' | 'Lindon' | 'Mordor' | 'Rohan' | 'Rhovanion'
 export type TerritoryId = string
 export type ChainSymbol = number
+export type SpecialEffect =
+  'optional-resource-crs' |
+  'optional-resource-kl'  |
+  'lose-coin'             |
+  'remove-unit'           |
+  'move-unit';
 
 export interface User {
   id: string
@@ -25,6 +32,10 @@ export interface User {
   ringJourney: number
   raceObtained: Race[]
   ownedChainSymbols: ChainSymbol[]
+
+  hasOptionalOne: boolean
+  hasOptionalTwo: boolean
+  hasOptionalAny: boolean
 }
 
 export interface UserResources {
@@ -63,11 +74,31 @@ export interface Card {
   /** Military cards let the player choose one of these territories. */
   territories: TerritoryId[]
 
-  /** Cost to play the card, which may be a list of resources, a chain symbol, or a numeric value. */
-  cost: ResourceType[] | ChainSymbol | number
+  /** Resources and coins required to play the card. */
+  cost: { resources: ResourceType[]; coins: number }
+
+  /** */
+  specialEffect?: SpecialEffect[]
 }
 
+export type Effect =
+  | { type: 'fortress'; territoryId: string }
+  | { type: 'units'; territoryId: string; count: number }
+  | { type: 'coins' | 'ring'; count: number }
+  | { type: 'movement' | 'discard-opponent' | 'discard-card' }
+  | { type: 'military'; card: Card }
+export type PendingChoice = Extract<Effect, { type: 'movement' | 'discard-opponent' | 'discard-card' | 'military' }>
+export type Choice = { cardId: string } | { territoryId: string } | { from: string; to: string } | { decline: true }
+
 export interface GameState {
+  landmarkReserve: string[]
+  landmarkMarket: string[]
+  ownedLandmarks: Record<Faction, string[]>
+  effectQueue: Effect[]
+  pendingChoice: PendingChoice | null
+  chapterComplete: boolean
+  resolvingChapterCard: boolean
+  victoryReason: 'ring' | 'races' | 'territories' | 'final-territories' | 'shared' | null
   id: string
   status: GameStatus
   chapter: Chapter
@@ -81,27 +112,47 @@ export interface GameState {
 
 export function createInitialGameState() {
   const deal = createChapterLayout(1)
+  const tiles = landMarkDefinitions.map(tile => tile.id)
+  for (let i = tiles.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[tiles[i], tiles[j]] = [tiles[j], tiles[i]]
+  }
   const state: GameState = {
-  id: crypto.randomUUID(),
-  status: 'setup',
-  chapter: 1,
-  territories: createInitialTerritories(),
-  players: {
-    fellowship: createPlayer('fellowship', 'The Fellowship'),
-    sauron: createPlayer('sauron', 'Sauron'),
-  },
-  availableCards: deal.cards,
-  discardedCards: deal.discardedCards,
-  winnerId: null,
-  currentPlayer: "fellowship",
+    landmarkMarket: tiles.slice(0, 3), landmarkReserve: tiles.slice(3),
+    ownedLandmarks: { fellowship: [], sauron: [] },
+    effectQueue: [], pendingChoice: null, chapterComplete: false,
+    resolvingChapterCard: false, victoryReason: null,
+    id: crypto.randomUUID(),
+    status: 'setup',
+    chapter: 1,
+    territories: createInitialTerritories(),
+    players: {
+      fellowship: createPlayer('fellowship', 'The Fellowship'),
+      sauron: createPlayer('sauron', 'Sauron'),
+    },
+    availableCards: deal.cards,
+    discardedCards: deal.discardedCards,
+    winnerId: null,
+    currentPlayer: "sauron",
+  }
+
+  return state
 }
 
 function createPlayer(faction: Faction, name: string) {
   const player: User = {
-    id: crypto.randomUUID(), name, faction, ownedCards: [], resources: [],
-    coinCount: 0, ringJourney: 0, raceObtained: [], ownedChainSymbols: [],
+    id: crypto.randomUUID(),
+    name,
+    faction,
+    ownedCards: [],
+    resources: [],
+    coinCount: 0,
+    ringJourney: 0,
+    raceObtained: [],
+    ownedChainSymbols: [],
+    hasOptionalOne: false,
+    hasOptionalTwo: false,
+    hasOptionalAny: false,
   }
   return player
-}
-  return state
 }

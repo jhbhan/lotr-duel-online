@@ -9,11 +9,35 @@ export function describeCard(card: Card) {
   return `+${card.value} unit${card.value === 1 ? '' : 's'}`
 }
 
+function CardEffect({ card }: { card: Card }) {
+  if (card.type === 'military') {
+    return <span className="effect-icon effect-shield" aria-hidden="true">{card.value}</span>
+  }
+  if (card.type === 'alliance' && card.race) {
+    return <span className={`alliance-letter alliance-${card.race}`} aria-hidden="true">
+      {card.race[0].toUpperCase()}
+    </span>
+  }
+  if (card.type === 'gold') {
+    return <span className="effect-icon effect-coin" aria-hidden="true">{card.value}</span>
+  }
+  if (card.type === 'ring' || (card.type === 'resource' && card.resourceType)) {
+    return Array.from({ length: card.value }, (_, index) => <span key={index} aria-hidden="true"
+      className={`effect-icon ${card.type === 'ring' ? 'effect-ring' : `effect-resource resource-${card.resourceType}`}`} />)
+  }
+  return describeCard(card)
+}
+
 export default function CardFront({ card, hideFreeCost = true }: { card: Card; hideFreeCost?: boolean }) {
   const territoryNames = card.territories.map(id => territoryDefinitions.find(territory => territory.id === id)?.name ?? id)
-  const cost = Array.isArray(card.cost) ? card.cost.join(' + ') || 'Free' : card.cost > 0 ? `${card.cost} coin${card.cost === 1 ? '' : 's'}` : 'Free'
+  const cost = [
+    ...card.cost.resources,
+    ...(card.cost.coins > 0 ? [`${card.cost.coins} coin${card.cost.coins === 1 ? '' : 's'}`] : []),
+  ].join(' + ') || 'Free'
   return <span className={`card-face card-front card-front-${card.type}`}>
-    <span className="card-effect">{describeCard(card)}</span>
+    <span className="card-effect" role="img" aria-label={describeCard(card)} title={describeCard(card)}>
+      <CardEffect card={card} />
+    </span>
     <span className="card-front-body">
       <span className="card-type-label">{card.type}</span>
       {territoryNames.length > 0 && <span className="card-territories">{territoryNames.join(' / ')}</span>}

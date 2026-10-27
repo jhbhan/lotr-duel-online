@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
-import type { Card, Chapter, Faction, GameState } from '../models'
-import { ChapterEngine } from '../engine/chapterEngine'
+import type { Card, Choice, GameState } from '../models'
 import { createChapterLayout } from '../engine/chapterLayouts'
 import { canAcquireCard } from '../engine/cardHelper'
 import { getRingTrack, getRemainingRingSteps } from '../engine/ringHelper'
 
+import LandmarkDialogs from './GamePlay/LandmarkDialogs'
 import ChapterLayoutCard from './GamePlay/ChapterLayoutCard'
 import PlayerCardsModal from './GamePlay/PlayerCardsModal'
 import MilitaryTerritoryModal from './GamePlay/MilitaryTerritoryModal'
@@ -14,17 +14,18 @@ import ChapterCompleteModal from './GamePlay/ChapterCompleteModal'
 import GameFinishedModal from './GamePlay/GameFinishedModal'
 import { PlayerSummary } from './GamePlay/PlayerSummary'
 
-export default function InGameView({ game, faction, onAdvanceChapter, onFinishGame, onAcquireCard, onSellCard, onExit }: {
+export default function InGameView({ game, onAdvanceChapter, onBuyLandmark, onResolveChoice, onAcquireCard, onSellCard, onExit }: {
   game: GameState
-  faction: Faction
-  onAdvanceChapter: (chapter: Chapter) => void
-  onFinishGame: () => void
+  onAdvanceChapter: () => void
+  onBuyLandmark: (id: string) => void
+  onResolveChoice: (choice: Choice) => void
   onAcquireCard: (cardId: string, territoryId?: string) => void
   onSellCard: (cardId: string) => void
   onExit: () => void
 }) {
-  const [modal, setModal] = useState<'territories' | 'military' | 'finished' | 'chapter-complete' | 'yours' | 'opponent' | null>(null)
+  const [modal, setModal] = useState<'landmarks' | 'territories' | 'military' | 'finished' | 'yours' | 'opponent' | null>(null)
   const [layout] = useState(() => createChapterLayout(game.chapter, game.availableCards))
+  const faction = game.currentPlayer
   const chapterCards = game.availableCards
   const [militaryCard, setMilitaryCard] = useState<Card | null>(null)
   const { rows } = layout
@@ -50,19 +51,9 @@ export default function InGameView({ game, faction, onAdvanceChapter, onFinishGa
   }
 
   function completeChapterCard(cardId: string, territoryId?: string, sell = false) {
-    const engine = new ChapterEngine(chapterCards)
-    engine.removeCard(cardId)
     if (sell) onSellCard(cardId)
     else onAcquireCard(cardId, territoryId)
     setModal(null)
-    if (engine.isComplete) {
-      if (game.chapter === 3) {
-        onFinishGame()
-        setModal('finished')
-      } else {
-        setModal('chapter-complete')
-      }
-    }
   }
 
   return (
@@ -82,8 +73,7 @@ export default function InGameView({ game, faction, onAdvanceChapter, onFinishGa
 
         <section className="game-panel chapter-panel" aria-labelledby="chapter-heading">
           <header className="chapter-heading">
-            <div><p className="eyebrow">DUEL FOR MIDDLE-EARTH</p><h1 id="chapter-heading">Chapter {game.chapter}</h1></div>
-            <span className="placeholder-label">{chapterCards.length} cards remaining</span>
+            <div><p className="eyebrow">DUEL FOR MIDDLE-EARTH</p><h1 id="chapter-heading">Chapter {game.chapter}</h1><p className={`active-faction active-${faction}`}>{player.name}’s turn</p></div>
           </header>
           <div className={`chapter-card-layout chapter-${game.chapter}`} style={{ '--rows': rows.length } as CSSProperties}>
             {rows.map((row, rowIndex) => (
@@ -91,7 +81,7 @@ export default function InGameView({ game, faction, onAdvanceChapter, onFinishGa
                 {row.ids.map(id => {
                   const card = cardById.get(id)
                   if (!card) return <span className="chapter-card-slot" key={id} />
-                  const available = card.isCoveredBy.length === 0
+                  const available = card.isCoveredBy.length === 0 && !game.pendingChoice && !game.chapterComplete && game.status === 'in-progress'
                   return <ChapterLayoutCard key={id} card={card} player={player}
                     available={available} initiallyFaceUp={row.faceUp}
                     onBuy={() => buyChapterCard(id)} onSell={() => completeChapterCard(id, undefined, true)} />
@@ -102,21 +92,20 @@ export default function InGameView({ game, faction, onAdvanceChapter, onFinishGa
         </section>
 
         <aside className="game-sidebar" aria-label="Players and game controls">
-          <PlayerSummary label="Opponent" player={opponent} onClick={() => setModal('opponent')} />
+          <PlayerSummary label="Next player" player={opponent} onClick={() => setModal('opponent')} />
           <section className="game-panel sidebar-controls" aria-labelledby="controls-heading">
-            <h2 id="controls-heading">Game info</h2>
-            <p className="game-caption">Chapter {game.chapter} · Placeholder</p>
             <nav className="game-actions" aria-label="Game controls">
               <button className="game-button" onClick={() => setModal('territories')}>Territory map</button>
+              <button className="game-button" onClick={() => setModal('landmarks')}>Landmarks</button>
               <button className="game-button" onClick={onExit}>Back to setup</button>
             </nav>
           </section>
-          <PlayerSummary label="You" player={player} onClick={() => setModal('yours')} />
+          <PlayerSummary label="Active player" player={player} onClick={() => setModal('yours')} />
         </aside>
       </div>
 
       {(modal === 'yours' || modal === 'opponent') && <PlayerCardsModal
-        player={modal === 'opponent' ? opponent : player} isOpponent={modal === 'opponent'} onClose={() => setModal(null)} />}
+        landmarkIds={game.ownedLandmarks[modal === 'opponent' ? opponentFaction : faction]} player={modal === 'opponent' ? opponent : player} isOpponent={modal === 'opponent'} onClose={() => setModal(null)} />}
       {modal === 'military' && militaryCard && <MilitaryTerritoryModal card={militaryCard}
         onClose={() => { setModal(null); setMilitaryCard(null) }} onSelectTerritory={id => {
           setMilitaryCard(null)
@@ -124,10 +113,12 @@ export default function InGameView({ game, faction, onAdvanceChapter, onFinishGa
           completeChapterCard(militaryCard.id, id)
         }} />}
       {modal === 'territories' && <TerritoryMapModal territories={game.territories} onClose={() => setModal(null)} />}
-      {modal === 'chapter-complete' && <ChapterCompleteModal chapter={game.chapter}
-        onClose={() => setModal(null)} onAdvance={() => onAdvanceChapter((game.chapter + 1) as Chapter)} />}
+      {game.chapterComplete && <ChapterCompleteModal chapter={game.chapter}
+        onClose={() => setModal(null)} onAdvance={onAdvanceChapter} />}
       {modal === 'finished' && <GameFinishedModal game={game} onClose={() => setModal(null)} onExit={onExit} />}
 
+      <LandmarkDialogs game={game} marketOpen={modal === 'landmarks'} onClose={() => setModal(null)}
+        onBuy={id => { setModal(null); onBuyLandmark(id) }} onResolve={onResolveChoice} />
     </main>
   )
 }

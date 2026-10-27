@@ -5,29 +5,40 @@ export const sellCard = (user: User, card: Card) => {
     user.coinCount += card.chapter;
 }
 
-// Resolve the coin payment after applying chains and available resources.
-const resolveCardCost = (user: User, card: Card) => {
-    if (card.chainSymbol !== null && user.ownedChainSymbols.includes(card.chainSymbol)) {
-        return 0
-    }
-
-    if (typeof card.cost === 'number') {
-        return card.cost
-    }
-
+export const getCost = (user: User, cost: ResourceType[]) => {
     const availableResources = [...user.resources]
+    let optionalOneAvailable = user.hasOptionalOne
+    let optionalTwoAvailable = user.hasOptionalTwo
+    let optionalAnyAvailable = user.hasOptionalAny
     let coinCost = 0
 
-    for (const resource of card.cost) {
+    for (const resource of cost) {
         const index = availableResources.indexOf(resource)
         if (index === -1) {
-            coinCost += 1
+            if (optionalOneAvailable && (resource === 'ruse' || resource === 'strength' || resource === 'courage')) {
+                optionalOneAvailable = false
+            } else if (optionalTwoAvailable && (resource === 'knowledge' || resource === 'leadership')) {
+                optionalTwoAvailable = false
+            } else if (optionalAnyAvailable) {
+                optionalAnyAvailable = false
+            } else {
+                coinCost += 1
+            }
         } else {
             availableResources.splice(index, 1)
         }
     }
 
     return coinCost
+}
+
+// Resolve the coin payment after applying chains and available resources.
+const resolveCardCost = (user: User, card: Card) => {
+    if (card.chainSymbol !== null && user.ownedChainSymbols.includes(card.chainSymbol)) {
+        return 0
+    }
+
+    return card.cost.coins + getCost(user, card.cost.resources)
 }
 
 export const canAcquireCard = (user: User, card: Card) => {
@@ -52,6 +63,9 @@ export const acquireCardForUser = (user: User, card: Card) => {
 
 export const addCardToUser = (user: User, card: Card) => {
     user.ownedCards.push(card)
+    if (card.chainSymbol !== null) user.ownedChainSymbols.push(card.chainSymbol)
+    if (card.specialEffect?.includes('optional-resource-crs')) user.hasOptionalOne = true
+    if (card.specialEffect?.includes('optional-resource-kl')) user.hasOptionalTwo = true
 
     if (card.type === 'resource' && card.resourceType) {
         user.resources.push(...Array<ResourceType>(card.value).fill(card.resourceType))
@@ -69,23 +83,21 @@ export const addCardToUser = (user: User, card: Card) => {
         user.raceObtained.push(card.race)
     }
 
-    if (card.type === 'military') {
-        // TODO: show "the add units to territory" UI to the user
-    }
 }
 
 export const removeCardFromUser = (user: User, cardId: string) => {
-    user.ownedCards = user.ownedCards.filter((card) => card.id !== cardId)
-    // Remove the corresponding resource if the card was a resource card
-    const card = user.ownedCards.find((c) => c.id === cardId)
-    if (!card) {
-        throw new Error(`Card with ID ${cardId} not found in user's owned cards.`)
+    const card = user.ownedCards.find(c => c.id === cardId)
+    if (!card) throw new Error('Card not owned.')
+    user.ownedCards = user.ownedCards.filter(c => c.id !== cardId)
+    if (card.chainSymbol !== null && !user.ownedCards.some(c => c.chainSymbol === card.chainSymbol)) {
+        user.ownedChainSymbols = user.ownedChainSymbols.filter(symbol => symbol !== card.chainSymbol)
     }
-
-    if (card.type === 'resource') {
-        user.resources = user.resources.filter((r) => r !== card.resourceType)
+    if (card.type === 'resource' && card.resourceType) {
+        for (let i = 0; i < card.value; i++) {
+            const index = user.resources.indexOf(card.resourceType)
+            if (index >= 0) user.resources.splice(index, 1)
+        }
     }
-
     if (card.type === 'alliance' && card.race) {
         user.raceObtained = user.raceObtained.filter((r) => r !== card.race)
     }

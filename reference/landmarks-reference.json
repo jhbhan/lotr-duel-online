@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Landmark gameplay definitions transcribed from the physical tiles and player aid.",
+  "sources": [
+    {
+      "id": "aid-landmarks-ring",
+      "path": "player-aid-landmarks-and-ring.png",
+      "pdfPage": 1
+    },
+    {
+      "id": "landmark-photo",
+      "path": "landmark-tiles.HEIC",
+      "originalFilename": "IMG_8831.HEIC"
+    },
+    {
+      "id": "rulebook",
+      "url": "https://bghub.org/r/thelordoftheringduelformiddleearth.pdf",
+      "pdfPage": 4
+    }
+  ],
+  "photoOrientation": "Positions below assume the photo is rotated 90 degrees counterclockwise, so the cards are upright.",
+  "resourceLegend": {
+    "strength": "blue fist",
+    "courage": "red heart/flame",
+    "ruse": "black hooded head",
+    "leadership": "purple crown",
+    "knowledge": "green book/scroll"
+  },
+  "sharedRules": {
+    "timing": "Landmark effects are immediate and used once when gained.",
+    "additionalCostSymbol": {
+      "description": "Every tile begins its cost row with a yellow circle containing a black tower/fortress silhouette.",
+      "meaning": "Pay one coin per friendly fortress already on the central board, before placement.",
+      "status": "Verified in rulebook page 4.",
+      "sourceId": "rulebook"
+    }
+  },
+  "landmarks": [
+    {
+      "id": "barad-dur",
+      "name": "Barad-d\u00fbr",
+      "territory": "Mordor",
+      "photoPosition": "top right",
+      "cost": {
+        "resources": {
+          "courage": 3,
+          "leadership": 2,
+          "knowledge": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress in Mordor.",
+        "Take all discarded cards, secretly choose 1, and play it for free."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "bree",
+      "name": "Bree",
+      "territory": "Arnor",
+      "photoPosition": "top left",
+      "cost": {
+        "resources": {
+          "strength": 3,
+          "courage": 2,
+          "leadership": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress and 2 units in Arnor.",
+        "Complete 2 movements on the central board."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "erebor",
+      "name": "Erebor",
+      "territory": "Rhovanion",
+      "photoPosition": "bottom right",
+      "cost": {
+        "resources": {
+          "ruse": 1,
+          "strength": 2,
+          "courage": 1,
+          "leadership": 1,
+          "knowledge": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress in Rhovanion.",
+        "Take 5 coins from the reserve.",
+        "Complete 1 movement on the central board."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "grey-havens",
+      "name": "Grey Havens",
+      "territory": "Lindon",
+      "photoPosition": "far right",
+      "cost": {
+        "resources": {
+          "strength": 3,
+          "leadership": 2,
+          "knowledge": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress in Lindon.",
+        "Take the top 2 tokens of any one race and reveal them. Choose 1 to place in front of you. Return the second token face down to the top of its stack."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "helms-deep",
+      "name": "Helm\u2019s Deep",
+      "territory": "Rohan",
+      "photoPosition": "bottom middle",
+      "cost": {
+        "resources": {
+          "ruse": 3,
+          "leadership": 2,
+          "knowledge": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress and 3 units in Rohan."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "isengard",
+      "name": "Isengard",
+      "territory": "Enedwaith",
+      "photoPosition": "bottom left",
+      "cost": {
+        "resources": {
+          "ruse": 2,
+          "courage": 3,
+          "knowledge": 1
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress in Enedwaith.",
+        "Discard 1 grey card from the opponent\u2019s play area.",
+        "Move your character 1 space on the Quest of the Ring track."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    },
+    {
+      "id": "minas-tirith",
+      "name": "Minas Tirith",
+      "territory": "Gondor",
+      "photoPosition": "top middle",
+      "cost": {
+        "resources": {
+          "ruse": 3,
+          "strength": 1,
+          "knowledge": 2
+        },
+        "coins": null,
+        "additionalCostSymbol": true,
+        "sourceId": "landmark-photo",
+        "status": "Resource counts transcribed from photo; fortress surcharge verified in rulebook."
+      },
+      "effects": [
+        "Place 1 fortress and 1 unit in Gondor.",
+        "Move your character 2 spaces on the Quest of the Ring track."
+      ],
+      "effectsSourceId": "aid-landmarks-ring",
+      "timing": "immediate_on_gain"
+    }
+  ],
+  "notes": [
+    "Landmark names and destination regions come from the player aid; the photographed tiles have no printed names."
+  ]
+}

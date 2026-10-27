@@ -54,22 +54,22 @@ export class ChapterEngine {
         }
     }
 
-    get revealedCards(): ChapterCard[] {
+    get revealedCards() {
         return [...this.chapterCardList.values()]
             .filter(card => this.coveringCardMap.get(card.id)!.size === 0)
             .map(card => this.copyCard(card))
     }
 
-    get cards(): ChapterCard[] {
+    get cards() {
         return [...this.chapterCardList.values()].map(card => this.copyCard(card))
     }
 
-    get isComplete(): boolean {
+    get isComplete() {
         return this.chapterCardList.size === 0
     }
 
     /** Remove an available card after it is acquired, sold, or otherwise selected. */
-    removeCard(cardId: Card['id']): ChapterCard {
+    removeCard(cardId: Card['id']) {
         const card = this.chapterCardList.get(cardId)
         if (!card) {
             throw new Error(`Card not found in chapter: ${cardId}`)
@@ -89,10 +89,10 @@ export class ChapterEngine {
         return this.copyCard(card)
     }
 
-    private copyCard(card: ChapterCard): ChapterCard {
+    private copyCard(card: ChapterCard) {
         return {
             ...card,
-            cost: Array.isArray(card.cost) ? [...card.cost] : card.cost,
+            cost: { ...card.cost, resources: [...card.cost.resources] },
             isCoveredBy: [...card.isCoveredBy],
         }
     }

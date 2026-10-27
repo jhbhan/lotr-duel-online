@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { createInitialGameState } from './models'
-import type { Chapter, Faction, GameState } from './models'
+import type { Choice, Faction, GameState } from './models'
 import { acquireChapterCard, sellChapterCard } from './engine/acquireChapterCard'
-import { createChapterLayout } from './engine/chapterLayouts'
+import { advanceChapter, buyLandmark, resolvePendingChoice } from './engine/landMarks'
 import InGameView from './components/InGameView'
 
 const factions: { id: Faction; name: string; description: string; symbol: string }[] = [
@@ -20,31 +20,19 @@ export default function App() {
     setGame(initial)
   }
 
-  function advanceChapter(nextChapter: Chapter) {
-    const deal = createChapterLayout(nextChapter)
-    setGame(current => current ? {
-      ...current,
-      chapter: nextChapter,
-      availableCards: deal.cards,
-      discardedCards: [...current.discardedCards, ...deal.discardedCards],
-    } : current)
-  }
-
-  function finishGame() {
-    setGame(current => current ? { ...current, status: 'finished' } : current)
-  }
-
   function acquireCard(cardId: string, territoryId?: string) {
-    setGame(current => current ? acquireChapterCard(current, faction, cardId, territoryId) : current)
+    setGame(current => current ? acquireChapterCard(current, current.currentPlayer, cardId, territoryId) : current)
   }
 
   function sellAvailableCard(cardId: string) {
-    setGame(current => current ? sellChapterCard(current, faction, cardId) : current)
+    setGame(current => current ? sellChapterCard(current, current.currentPlayer, cardId) : current)
   }
 
   if (game) {
-    return <InGameView key={game.chapter} game={game} faction={faction}
-      onAdvanceChapter={advanceChapter} onFinishGame={finishGame} onAcquireCard={acquireCard} onSellCard={sellAvailableCard} onExit={() => setGame(null)} />
+    return <InGameView key={game.chapter} game={game}
+      onAdvanceChapter={() => setGame(current => current ? advanceChapter(current) : current)}
+      onBuyLandmark={id => setGame(current => current ? buyLandmark(current, id) : current)}
+      onResolveChoice={(choice: Choice) => setGame(current => current ? resolvePendingChoice(current, choice) : current)} onAcquireCard={acquireCard} onSellCard={sellAvailableCard} onExit={() => setGame(null)} />
   }
 
   return (
