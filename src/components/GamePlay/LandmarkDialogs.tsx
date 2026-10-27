@@ -3,16 +3,8 @@ import { landMarkDefinitions } from '../../data/landMarks'
 import { getLandmarkCost, legalMovements } from '../../engine/landMarks'
 import CardFront, { describeCard } from '../CardFront'
 import Modal from './Modal'
-
-function CoinAmount({ count }: { count: number }) {
-  return (
-    <span className="landmark-coin-amount" aria-label={`${count} coins`}>
-      <span className="effect-icon effect-coin" aria-hidden="true">
-        {count}
-      </span>
-    </span>
-  )
-}
+import CoinAmount from '../CoinAmount'
+import RingIcon from '../RingIcon'
 
 function LandmarkEffect({ effect }: { effect: string }) {
   const ring = effect.match(/character (\d+) spaces?/)
@@ -22,18 +14,15 @@ function LandmarkEffect({ effect }: { effect: string }) {
   return (
     <li className="landmark-effect">
       <span className="landmark-effect-icons" aria-hidden="true">
-        {ring &&
-          Array.from({ length: Number(ring[1]) }, (_, i) => (
-            <span key={i} className="effect-icon effect-ring" />
+        {ring && Array.from({ length: Number(ring[1]) }, (_, i) => <RingIcon key={i} />)}
+        {movement &&
+          Array.from({ length: Number(movement[1]) }, (_, i) => (
+            <span key={i} className="movement-arrow">
+              →
+            </span>
           ))}
-        {movement && (
-          <span className="unit-movement-icon">
-            <span className="effect-icon effect-shield">{movement[1]}</span>
-            <span className="movement-arrow">→</span>
-          </span>
-        )}
         {units && <span className="effect-icon effect-shield">{units[1]}</span>}
-        {coins && <span className="effect-icon effect-coin">{coins[1]}</span>}
+        {coins && <CoinAmount count={Number(coins[1])} />}
       </span>
     </li>
   )
@@ -81,7 +70,6 @@ export default function LandmarkDialogs({
                 onClick={() => onResolve(move)}
               >
                 <span className="unit-movement-icon" aria-hidden="true">
-                  <span className="effect-icon effect-shield">1</span>
                   <span className="movement-arrow">→</span>
                 </span>{' '}
                 {territoryName(move.from)} → {territoryName(move.to)}
@@ -126,7 +114,6 @@ export default function LandmarkDialogs({
   return (
     <Modal title="Landmarks" onClose={onClose}>
       <p className="landmark-wallet">
-        {actor.name} · <CoinAmount count={actor.coinCount} /> · Fortress surcharge:{' '}
         <CoinAmount count={surcharge} />
       </p>
       <div className="landmark-market">
@@ -136,8 +123,9 @@ export default function LandmarkDialogs({
           const occupied = game.territories.find((t) => t.id === tile.territoryId)?.fortress
           return (
             <article className={`landmark-tile territory-${tile.territoryId}`} key={id}>
-              <h3>
-                {tile.name} | {territoryName(tile.territoryId)}
+              <h3 className="landmark-heading">
+                <span>{tile.name}</span>
+                <span className="landmark-territory">{territoryName(tile.territoryId)}</span>
               </h3>
               <div
                 className="landmark-resources"

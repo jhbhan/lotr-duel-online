@@ -96,18 +96,6 @@ export default function TerritoryMap({ territories }: { territories: Territory[]
           )
         })}
       </svg>
-      <div className="territory-details" aria-live="polite">
-        {selected ? (
-          <>
-            <strong>{selected.name}</strong>
-            <p>
-              Connected to {selected.adjacentTerritoryIds.map((id) => names.get(id)).join(', ')}.
-            </p>
-          </>
-        ) : (
-          <p>Seven territories · Ten routes</p>
-        )}
-      </div>
     </div>
   )
 }

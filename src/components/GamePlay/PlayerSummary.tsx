@@ -1,3 +1,4 @@
+import CoinAmount from '../CoinAmount'
 import type { Race, ResourceType, User } from '../../models'
 
 const resources: ResourceType[] = ['strength', 'courage', 'ruse', 'leadership', 'knowledge']
@@ -72,13 +73,7 @@ export const ResourceDisplay = ({
   coins: number
 }) => (
   <div className="resource-summary" aria-label="Resources and coins">
-    <span
-      className="resource-circle resource-coin"
-      title={`Coins: ${coins}`}
-      aria-label={`Coins: ${coins}`}
-    >
-      {coins}
-    </span>
+    <CoinAmount count={coins} className="resource-circle resource-coin" />
     {resources.map((resource) => {
       const count = ownedResources.filter((owned) => owned === resource).length
       return (

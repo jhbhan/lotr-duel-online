@@ -1708,18 +1708,31 @@ body:has(.game-view) {
 .active-fellowship {
   color: #6da7aa;
 }
+.game-modal:has(.landmark-market) {
+  width: min(1040px, calc(100% - 32px));
+}
 .landmark-market {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr));
+  grid-template-columns: repeat(3, minmax(235px, 1fr));
   gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
 }
 .landmark-tile {
   border: 1px solid #987a47;
   padding: 1rem;
   border-radius: 8px;
 }
-.landmark-tile h3 {
+.landmark-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
   margin-top: 0;
+  text-align: left;
+}
+.landmark-territory {
+  text-align: right;
 }
 .landmark-resources,
 .choice-list {
@@ -1779,7 +1792,7 @@ body:has(.game-view) {
 }
 .landmark-resources .effect-icon,
 .landmark-effect-icons .effect-icon,
-.landmark-coin-amount .effect-icon,
+.coin-amount,
 .unit-movement-icon .effect-icon {
   width: 24px;
   height: 24px;
@@ -1795,8 +1808,9 @@ body:has(.game-view) {
 }
 .landmark-resources {
   min-height: 24px;
+  justify-content: center;
 }
-.landmark-coin-amount {
+.coin-amount {
   display: inline-flex;
   vertical-align: middle;
 }
@@ -1804,6 +1818,9 @@ body:has(.game-view) {
   list-style: none;
   padding: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.8rem;
 }
 .landmark-effect {
@@ -1828,6 +1845,8 @@ body:has(.game-view) {
   vertical-align: middle;
 }
 .movement-arrow {
+  font-weight: 900;
+  -webkit-text-stroke: 0.6px currentColor;
   font-size: 24px;
   line-height: 1;
   color: #edca70;
@@ -1847,4 +1866,13 @@ body:has(.game-view) {
 }
 .landmark-tile .landmark-resources {
   margin-bottom: 0.5rem;
+}
+
+.card-effect > .coin-amount {
+  width: auto;
+  height: 85%;
+  font-size: inherit;
+}
+.resource-summary > .coin-amount {
+  height: auto;
 }
