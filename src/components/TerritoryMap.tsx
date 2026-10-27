@@ -18,8 +18,6 @@ const factionColors = {
 
 export default function TerritoryMap({ territories }: { territories: Territory[] }) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const selected = territories.find((territory) => territory.id === selectedId)
-  const names = new Map(territories.map((territory) => [territory.id, territory.name]))
 
   return (
     <div className="territory-map">

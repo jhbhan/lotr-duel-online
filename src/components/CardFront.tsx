@@ -1,7 +1,7 @@
+import { territoryDefinitions } from '../data/territories'
 import type { Card } from '../models'
 import CoinAmount from './CoinAmount'
 import RingIcon from './RingIcon'
-import { territoryDefinitions } from '../data/territories'
 
 export function describeCard(card: Card) {
   if (card.type === 'resource') return `+${card.value} ${card.resourceType}`
